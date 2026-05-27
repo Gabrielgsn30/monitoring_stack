@@ -1,24 +1,28 @@
-version: '3'
+version: '3.8'
 
 services:
   prometheus:
     image: prom/prometheus:v2.30.3
     ports:
-      - 9000:9090
+      - 9090:9090
     volumes:
       - ./prometheus:/etc/prometheus
       - prometheus-data:/prometheus
-    command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
+    command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml
+    networks:
+      - minha_rede
 
 
   grafana:
-    image: grafana/grafana:8.2.2
+    image: grafana/grafana:12.0.0
     ports:
       - 3000:3000
     restart: unless-stopped
     volumes:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - grafana-data:/var/lib/grafana
+    networks:
+      - minha_rede
 
   alertmanager:
     image: prom/alertmanager:v0.23.0
@@ -26,17 +30,32 @@ services:
     ports:
       - "9093:9093"
     volumes:
+      - "./templates:/etc/prometheus/alertmanager_templates" 
       - "./alertmanager:/config"
       - alertmanager-data:/data
     command: --config.file=/config/alertmanager.yml --log.level=debug 
+    networks:
+      - minha_rede
 
-  prom2teams:
-    image: idealista/prom2teams:3.2.3
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    command:
+      - '--path.rootfs=/host'
+    network_mode: host
+    pid: host
     restart: unless-stopped
-    environment:
-      PROM2TEAMS_CONNECTOR: "https://og2gether.webhook.office.com/webhookb2/b5370781-89c2-45ba-be14-453e29dfb0a9@8794e153-c3bd-4479-8bea-61aeaf167d5a/IncomingWebhook/57e69e8f10dd49ce8dae3b816159e228/4eb361c9-e566-4b66-ab30-bed630f495a5"
-    ports:
-      - 8089:8089
+    volumes:
+      - '/:/host:ro,rslave'
+  
+networks:
+  minha_rede:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.192.0/24
+          gateway: 192.168.192.1
+
 
 
 volumes:
