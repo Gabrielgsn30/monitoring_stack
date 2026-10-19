@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   prometheus:
-    image: prom/prometheus:v3.12.0
+    image: prom/prometheus:v3.13.0
     ports:
       - 9090:9090
     restart: unless-stopped
@@ -15,7 +15,7 @@ services:
 
 
   grafana:
-    image: grafana/grafana:12.0.0
+    image: grafana/grafana:13.0.2
     ports:
       - 3000:3000
     restart: unless-stopped
@@ -26,7 +26,7 @@ services:
       - minha_rede
 
   alertmanager:
-    image: prom/alertmanager:v0.23.0
+    image: prom/alertmanager:v0.33.0
     restart: unless-stopped
     ports:
       - "9093:9093"
