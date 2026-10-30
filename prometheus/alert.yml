@@ -2,3 +2,42 @@ groups:
   - name: DemoAlerts
     rules:
 
+    - alert: ServicoDownCritical
+      expr: up == 0
+      for: 0m
+      labels:
+        severity: critical
+      annotations:
+        summary: 'Alerta indica algum serviço indisponível.'
+
+    - alert: ServicoDownHigh
+      expr: up == 0
+      for: 0m
+      labels:
+        severity: high
+      annotations:
+        summary: 'Alerta indica algum serviço indisponível.'
+
+    - alert: ServicoDownWarning
+      expr: up == 0
+      for: 0m
+      labels:
+        severity: warning
+      annotations:
+        summary: 'Alerta indica algum serviço indisponível.'
+
+    - alert: ServicoDownMedium
+      expr: up == 0
+      for: 0m
+      labels:
+        severity: medium
+      annotations:
+        summary: 'Alerta indica algum serviço indisponível.'
+
+    - alert: ServicoDownLow
+      expr: up == 0
+      for: 0m
+      labels:
+        severity: low
+      annotations:
+        summary: 'Alerta indica algum serviço indisponível.'
