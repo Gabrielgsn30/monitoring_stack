@@ -1,0 +1,1149 @@
+{
+  "apiVersion": "dashboard.grafana.app/v2",
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "ttPNaAH4z",
+    "namespace": "default",
+    "uid": "wbWNR0XrInYrdvebfQQXEnhCRoEed9FCoFDTs9NHlYMX",
+    "resourceVersion": "1793318082972993",
+    "generation": 10,
+    "creationTimestamp": "2026-05-28T23:49:31Z",
+    "labels": {
+      "grafana.app/deprecatedInternalID": "4"
+    },
+    "annotations": {
+      "grafana.app/createdBy": "user:u000000001",
+      "grafana.app/folder": "",
+      "grafana.app/saved-from-ui": "Grafana v13.0.2 (3fcdbc5a)",
+      "grafana.app/updatedBy": "user:u000000001",
+      "grafana.app/updatedTimestamp": "2026-10-29T23:54:42Z"
+    }
+  },
+  "spec": {
+    "annotations": [
+      {
+        "kind": "AnnotationQuery",
+        "spec": {
+          "query": {
+            "kind": "DataQuery",
+            "group": "grafana",
+            "version": "v0",
+            "datasource": {
+              "name": "-- Grafana --"
+            },
+            "spec": {
+              "limit": 100,
+              "matchAny": false,
+              "tags": [],
+              "type": "dashboard"
+            }
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "builtIn": true
+        }
+      }
+    ],
+    "cursorSync": "Off",
+    "editable": true,
+    "elements": {
+      "panel-2": {
+        "kind": "Panel",
+        "spec": {
+          "id": 2,
+          "title": "Todos os Alertas no Momento",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "camptocamp-prometheus-alertmanager-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "cfnh0s895y3nkb"
+                      },
+                      "spec": {}
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [
+                {
+                  "kind": "Transformation",
+                  "group": "reduce",
+                  "spec": {
+                    "options": {
+                      "reducers": [
+                        "count"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.2",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "mappings": [
+                    {
+                      "type": "special",
+                      "options": {
+                        "match": "null+nan",
+                        "result": {
+                          "text": "OK",
+                          "color": "dark-green",
+                          "index": 1
+                        }
+                      }
+                    }
+                  ],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 1,
+                        "color": "#EAB839"
+                      },
+                      {
+                        "value": 2,
+                        "color": "orange"
+                      },
+                      {
+                        "value": 5,
+                        "color": "dark-red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "thresholds"
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-3": {
+        "kind": "Panel",
+        "spec": {
+          "id": 3,
+          "title": "High",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "camptocamp-prometheus-alertmanager-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "cfnh0s895y3nkb"
+                      },
+                      "spec": {}
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [
+                {
+                  "kind": "Transformation",
+                  "group": "organize",
+                  "spec": {
+                    "options": {
+                      "excludeByName": {
+                        "SeverityValue": true,
+                        "alertname": true,
+                        "alertstatus": true,
+                        "alertstatus_code": true,
+                        "instance": true,
+                        "job": true,
+                        "summary": true
+                      },
+                      "indexByName": {},
+                      "renameByName": {}
+                    }
+                  }
+                },
+                {
+                  "kind": "Transformation",
+                  "group": "filterByValue",
+                  "spec": {
+                    "options": {
+                      "filters": [
+                        {
+                          "config": {
+                            "id": "equal",
+                            "options": {
+                              "value": "high"
+                            }
+                          },
+                          "fieldName": "severity"
+                        }
+                      ],
+                      "match": "any",
+                      "type": "include"
+                    }
+                  }
+                },
+                {
+                  "kind": "Transformation",
+                  "group": "reduce",
+                  "spec": {
+                    "options": {
+                      "reducers": [
+                        "count"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.2",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "mappings": [
+                    {
+                      "type": "special",
+                      "options": {
+                        "match": "null+nan",
+                        "result": {
+                          "text": "OK",
+                          "color": "dark-green",
+                          "index": 1
+                        }
+                      }
+                    }
+                  ],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 1,
+                        "color": "dark-orange"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "thresholds"
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-4": {
+        "kind": "Panel",
+        "spec": {
+          "id": 4,
+          "title": "Critico",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "camptocamp-prometheus-alertmanager-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "cfnh0s895y3nkb"
+                      },
+                      "spec": {}
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [
+                {
+                  "kind": "Transformation",
+                  "group": "organize",
+                  "spec": {
+                    "options": {
+                      "excludeByName": {
+                        "SeverityValue": true,
+                        "alertname": true,
+                        "alertstatus": true,
+                        "alertstatus_code": true,
+                        "instance": true,
+                        "job": true,
+                        "summary": true
+                      },
+                      "indexByName": {},
+                      "renameByName": {}
+                    }
+                  }
+                },
+                {
+                  "kind": "Transformation",
+                  "group": "filterByValue",
+                  "spec": {
+                    "options": {
+                      "filters": [
+                        {
+                          "config": {
+                            "id": "equal",
+                            "options": {
+                              "value": "critical"
+                            }
+                          },
+                          "fieldName": "severity"
+                        }
+                      ],
+                      "match": "any",
+                      "type": "include"
+                    }
+                  }
+                },
+                {
+                  "kind": "Transformation",
+                  "group": "reduce",
+                  "spec": {
+                    "options": {
+                      "reducers": [
+                        "count"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.2",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "mappings": [
+                    {
+                      "type": "value",
+                      "options": {
+                        "0": {
+                          "text": "OK",
+                          "color": "dark-green",
+                          "index": 1
+                        }
+                      }
+                    },
+                    {
+                      "type": "special",
+                      "options": {
+                        "match": "null+nan",
+                        "result": {
+                          "text": "OK",
+                          "color": "dark-green",
+                          "index": 0
+                        }
+                      }
+                    }
+                  ],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 1,
+                        "color": "dark-red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "thresholds"
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-5": {
+        "kind": "Panel",
+        "spec": {
+          "id": 5,
+          "title": "Medium",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "camptocamp-prometheus-alertmanager-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "cfnh0s895y3nkb"
+                      },
+                      "spec": {}
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [
+                {
+                  "kind": "Transformation",
+                  "group": "organize",
+                  "spec": {
+                    "options": {
+                      "excludeByName": {
+                        "SeverityValue": true,
+                        "alertname": true,
+                        "alertstatus": true,
+                        "alertstatus_code": true,
+                        "instance": true,
+                        "job": true,
+                        "summary": true
+                      },
+                      "indexByName": {},
+                      "renameByName": {}
+                    }
+                  }
+                },
+                {
+                  "kind": "Transformation",
+                  "group": "filterByValue",
+                  "spec": {
+                    "options": {
+                      "filters": [
+                        {
+                          "config": {
+                            "id": "equal",
+                            "options": {
+                              "value": "medium"
+                            }
+                          },
+                          "fieldName": "severity"
+                        }
+                      ],
+                      "match": "any",
+                      "type": "include"
+                    }
+                  }
+                },
+                {
+                  "kind": "Transformation",
+                  "group": "reduce",
+                  "spec": {
+                    "options": {
+                      "reducers": [
+                        "count"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.2",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "mappings": [
+                    {
+                      "type": "value",
+                      "options": {
+                        "0": {
+                          "text": "OK",
+                          "color": "dark-green",
+                          "index": 1
+                        }
+                      }
+                    },
+                    {
+                      "type": "special",
+                      "options": {
+                        "match": "null+nan",
+                        "result": {
+                          "text": "OK",
+                          "color": "dark-green",
+                          "index": 0
+                        }
+                      }
+                    }
+                  ],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 1,
+                        "color": "dark-yellow"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "thresholds"
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-6": {
+        "kind": "Panel",
+        "spec": {
+          "id": 6,
+          "title": "Warning",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "camptocamp-prometheus-alertmanager-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "cfnh0s895y3nkb"
+                      },
+                      "spec": {}
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [
+                {
+                  "kind": "Transformation",
+                  "group": "organize",
+                  "spec": {
+                    "options": {
+                      "excludeByName": {
+                        "SeverityValue": true,
+                        "alertname": true,
+                        "alertstatus": true,
+                        "alertstatus_code": true,
+                        "instance": true,
+                        "job": true,
+                        "summary": true
+                      },
+                      "indexByName": {},
+                      "renameByName": {}
+                    }
+                  }
+                },
+                {
+                  "kind": "Transformation",
+                  "group": "filterByValue",
+                  "spec": {
+                    "options": {
+                      "filters": [
+                        {
+                          "config": {
+                            "id": "equal",
+                            "options": {
+                              "value": "warning"
+                            }
+                          },
+                          "fieldName": "severity"
+                        }
+                      ],
+                      "match": "any",
+                      "type": "include"
+                    }
+                  }
+                },
+                {
+                  "kind": "Transformation",
+                  "group": "reduce",
+                  "spec": {
+                    "options": {
+                      "reducers": [
+                        "count"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.2",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "mappings": [
+                    {
+                      "type": "value",
+                      "options": {
+                        "0": {
+                          "text": "OK",
+                          "color": "dark-green",
+                          "index": 1
+                        }
+                      }
+                    },
+                    {
+                      "type": "special",
+                      "options": {
+                        "match": "null+nan",
+                        "result": {
+                          "text": "OK",
+                          "color": "dark-green",
+                          "index": 0
+                        }
+                      }
+                    }
+                  ],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 1,
+                        "color": "dark-yellow"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "thresholds"
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-7": {
+        "kind": "Panel",
+        "spec": {
+          "id": 7,
+          "title": "Low",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "camptocamp-prometheus-alertmanager-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "cfnh0s895y3nkb"
+                      },
+                      "spec": {}
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [
+                {
+                  "kind": "Transformation",
+                  "group": "organize",
+                  "spec": {
+                    "options": {
+                      "excludeByName": {
+                        "SeverityValue": true,
+                        "alertname": true,
+                        "alertstatus": true,
+                        "alertstatus_code": true,
+                        "instance": true,
+                        "job": true,
+                        "summary": true
+                      },
+                      "indexByName": {},
+                      "renameByName": {}
+                    }
+                  }
+                },
+                {
+                  "kind": "Transformation",
+                  "group": "filterByValue",
+                  "spec": {
+                    "options": {
+                      "filters": [
+                        {
+                          "config": {
+                            "id": "equal",
+                            "options": {
+                              "value": "low"
+                            }
+                          },
+                          "fieldName": "severity"
+                        }
+                      ],
+                      "match": "any",
+                      "type": "include"
+                    }
+                  }
+                },
+                {
+                  "kind": "Transformation",
+                  "group": "reduce",
+                  "spec": {
+                    "options": {
+                      "reducers": [
+                        "count"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.2",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "mappings": [
+                    {
+                      "type": "value",
+                      "options": {
+                        "0": {
+                          "text": "OK",
+                          "color": "dark-green",
+                          "index": 1
+                        }
+                      }
+                    },
+                    {
+                      "type": "special",
+                      "options": {
+                        "match": "null+nan",
+                        "result": {
+                          "text": "OK",
+                          "color": "dark-green",
+                          "index": 0
+                        }
+                      }
+                    }
+                  ],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 1,
+                        "color": "dark-blue"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "thresholds"
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-9": {
+        "kind": "Panel",
+        "spec": {
+          "id": 9,
+          "title": "Panel Title",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "camptocamp-prometheus-alertmanager-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "cfnh0s895y3nkb"
+                      },
+                      "spec": {}
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [
+                {
+                  "kind": "Transformation",
+                  "group": "organize",
+                  "spec": {
+                    "options": {
+                      "excludeByName": {
+                        "SeverityValue": true,
+                        "alertstatus": true,
+                        "alertstatus_code": true,
+                        "power_supply": true
+                      },
+                      "indexByName": {},
+                      "renameByName": {}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "table",
+            "version": "13.0.2",
+            "spec": {
+              "options": {
+                "cellHeight": "sm",
+                "showHeader": true,
+                "sortBy": [
+                  {
+                    "desc": false,
+                    "displayName": "severity"
+                  }
+                ]
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "custom": {
+                    "align": "auto",
+                    "cellOptions": {
+                      "type": "auto"
+                    },
+                    "footer": {
+                      "reducers": []
+                    },
+                    "inspect": false
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "layout": {
+      "kind": "GridLayout",
+      "spec": {
+        "items": [
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 10,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-7"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 10,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-6"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 10,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-5"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 12,
+              "y": 0,
+              "width": 4,
+              "height": 10,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-3"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 16,
+              "y": 0,
+              "width": 4,
+              "height": 10,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-4"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 20,
+              "y": 0,
+              "width": 4,
+              "height": 10,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-2"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 0,
+              "y": 10,
+              "width": 24,
+              "height": 14,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-9"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "links": [],
+    "liveNow": false,
+    "preload": false,
+    "tags": [],
+    "timeSettings": {
+      "timezone": "browser",
+      "from": "now-30m",
+      "to": "now",
+      "autoRefresh": "5s",
+      "autoRefreshIntervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "hideTimepicker": false,
+      "fiscalYearStartMonth": 0
+    },
+    "title": "Alertas em Geral",
+    "variables": []
+  }
+}
